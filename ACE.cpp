@@ -453,12 +453,17 @@ ACE::recv (ACE_HANDLE handle,
   else
     {
       int val = 0;
+      //invoke select poll or select 
+      //and set the handle to non-blocking
+      //if donot set the handle to non-blocking
+      //the recv function will hang block if there is no data to read
       if (ACE::enter_recv_timedwait (handle, timeout, val) ==-1)
         return -1;
       else
         {
           ssize_t bytes_transferred =
             ACE_OS::recv (handle, (char *) buf, len, flags);
+            //restore the blocking mode of handle
           ACE::restore_non_blocking_mode (handle, val);
           return bytes_transferred;
         }
@@ -504,11 +509,16 @@ ACE::recv (ACE_HANDLE handle,
   else
     {
       int val = 0;
+      //invoke select poll or select 
+      //and set the handle to non-blocking
+      //if donot set the handle to non-blocking
+      //the recv function will hang block if there is no data to read
       if (ACE::enter_recv_timedwait (handle, timeout, val) == -1)
         return -1;
       else
         {
           ssize_t bytes_transferred = ACE::recv_i (handle, buf, n);
+          //restore the default blockint mode
           ACE::restore_non_blocking_mode (handle, val);
           return bytes_transferred;
         }
