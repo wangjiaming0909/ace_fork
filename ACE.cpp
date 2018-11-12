@@ -2286,14 +2286,14 @@ ACE::enter_send_timedwait (ACE_HANDLE handle,
   return result;
 }
 
-void
-ACE::record_and_set_non_blocking_mode (ACE_HANDLE handle, int &val)
+//return the old flags using val
+void ACE::record_and_set_non_blocking_mode (ACE_HANDLE handle, int &val)
 {
   // We need to record whether we are already *in* nonblocking mode,
   // so that we can correctly reset the state when we're done.
   val = ACE::get_flags (handle);
 
-  if (ACE_BIT_DISABLED (val, ACE_NONBLOCK))
+  if (ACE_BIT_DISABLED (val, ACE_NONBLOCK))//check if non-blocking is disabled 
     // Set the handle into non-blocking mode if it's not already in
     // it.
     ACE::set_flags (handle, ACE_NONBLOCK);
