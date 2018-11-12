@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.makefile": "makefile",
+        "*.proj": "msbuild",
+        "algorithm": "cpp",
+        "vector": "cpp"
+    }
+}
