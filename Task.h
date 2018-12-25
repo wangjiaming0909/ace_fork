@@ -65,10 +65,7 @@ class ACE_Export ACE_Task_Base : public ACE_Service_Object
 {
 public:
   // = Initialization and termination methods.
-  /// Constructor.
   ACE_Task_Base (ACE_Thread_Manager * = 0);
-
-  /// Destructor.
   virtual ~ACE_Task_Base (void);
 
   // = Initialization and termination hooks.

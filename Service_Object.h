@@ -41,22 +41,15 @@ ACE_BEGIN_VERSIONED_NAMESPACE_DECL
  */
 class ACE_Export ACE_Service_Object
   : public ACE_Event_Handler,
-    public ACE_Shared_Object
-{
+    public ACE_Shared_Object{
 public:
   // = Initialization and termination methods.
-  /// Constructor.
   ACE_Service_Object (ACE_Reactor * = 0);
-
-  /// Destructor.
   virtual ~ACE_Service_Object (void);
-
   /// Temporarily disable a service without removing it completely.
   virtual int suspend (void);
-
   /// Re-enable a previously suspended service.
   virtual int resume (void);
-
   /// Declare the dynamic allocation hooks.
   ACE_ALLOC_HOOK_DECLARE;
 };

@@ -257,9 +257,7 @@ ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::make_svc_handler (SVC_HANDLER *&sh)
   ACE_TRACE ("ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::make_svc_handler");
 
   if (sh == 0)
-    ACE_NEW_RETURN (sh,
-                    SVC_HANDLER,
-                    -1);
+    ACE_NEW_RETURN (sh, SVC_HANDLER, -1);
 
   // Set the reactor of the newly created <SVC_HANDLER> to the same
   // reactor that this <ACE_Acceptor> is using.
@@ -272,9 +270,7 @@ ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::make_svc_handler (SVC_HANDLER *&sh)
 // <PEER_ACCEPTOR::accept> in the Acceptor_Strategy.
 
 template <typename SVC_HANDLER, typename PEER_ACCEPTOR> int
-ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::accept_svc_handler
-  (SVC_HANDLER *svc_handler)
-{
+ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::accept_svc_handler (SVC_HANDLER *svc_handler){
   ACE_TRACE ("ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::accept_svc_handler");
 
   // Try to find out if the implementation of the reactor that we are

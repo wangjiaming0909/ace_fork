@@ -241,7 +241,7 @@ protected:
    * on, as well as the ACE_HANDLE that threads wanting the
    * attention of the ACE_Select_Reactor will write to.
    */
-  ACE_Pipe notification_pipe_;
+  ACE_Pipe notification_pipe_;//notification will use this pipe
 
   /**
    * Keeps track of the maximum number of times that the
@@ -290,19 +290,18 @@ public:
 
   // = The mapping from <HANDLES> to <Event_Handlers>.
 #ifdef ACE_WIN32
-  /**
-   * The NT version implements this via a hash map
-   * @c ACE_Event_Handler*.  Since NT implements @c ACE_HANDLE
-   * as a void * we can't directly index into this array.  Therefore,
-   * we must explicitly map @c ACE_HANDLE to @c ACE_Event_Handler.
-   */
-  typedef ACE_Hash_Map_Manager_Ex<key_type,
-                                  value_type,
-                                  ACE_Hash<key_type>,
-                                  std::equal_to<key_type>,
-                                  ACE_Null_Mutex> map_type;
-
-  typedef map_type::size_type max_handlep1_type;
+   /**
+    * The NT version implements this via a hash map
+    * @c ACE_Event_Handler*.  Since NT implements @c ACE_HANDLE
+    * as a void * we can't directly index into this array.  Therefore,
+    * we must explicitly map @c ACE_HANDLE to @c ACE_Event_Handler.
+    */
+   typedef ACE_Hash_Map_Manager_Ex<key_type,
+                                   value_type,
+                                   ACE_Hash<key_type>,
+                                   std::equal_to<key_type>,
+                                   ACE_Null_Mutex> map_type;
+   typedef map_type::size_type max_handlep1_type;
 #else
   /**
    * The UNIX version implements this via a dynamically allocated
@@ -395,11 +394,11 @@ private:
   /// Reference to our @c Select_Reactor.
   ACE_Select_Reactor_Impl &select_reactor_;
 
-#ifndef ACE_WIN32
-  /// The highest currently active handle, plus 1 (ranges between 0 and
-  /// @c max_size_.
-  max_handlep1_type max_handlep1_;
-#endif  /* !ACE_WIN32 */
+// #ifndef ACE_WIN32
+//   /// The highest currently active handle, plus 1 (ranges between 0 and
+//   /// @c max_size_.
+//   max_handlep1_type max_handlep1_;
+// #endif  /* !ACE_WIN32 */
 
   /// Underlying table of event handlers.
   map_type event_handlers_;

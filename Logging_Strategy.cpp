@@ -129,8 +129,7 @@ ACE_Logging_Strategy::tokenize (ACE_TCHAR *flag_string)
     }
 }
 
-int
-ACE_Logging_Strategy::parse_args (int argc, ACE_TCHAR *argv[])
+int ACE_Logging_Strategy::parse_args (int argc, ACE_TCHAR *argv[])
 {
   ACE_TRACE ("ACE_Logging_Strategy::parse_args");
   ACE_TCHAR *temp;
@@ -248,8 +247,7 @@ ACE_Logging_Strategy::ACE_Logging_Strategy (void)
     max_file_number_ (1), // 2 files by default (max file number + 1)
     interval_ (ACE_DEFAULT_LOGFILE_POLL_INTERVAL),
     max_size_ (0),
-    log_msg_ (ACE_Log_Msg::instance ())
-{
+    log_msg_ (ACE_Log_Msg::instance ()){
 #if defined (ACE_DEFAULT_LOGFILE)
   this->filename_ = ACE::strnew (ACE_DEFAULT_LOGFILE);
 #else /* ACE_DEFAULT_LOGFILE */
@@ -314,8 +312,7 @@ ACE_Logging_Strategy::fini (void)
   return 0;
 }
 
-int
-ACE_Logging_Strategy::init (int argc, ACE_TCHAR *argv[])
+int ACE_Logging_Strategy::init (int argc, ACE_TCHAR *argv[])
 {
   ACE_TRACE ("ACE_Logging_Strategy::init");
 

@@ -29,21 +29,15 @@ ACE_BEGIN_VERSIONED_NAMESPACE_DECL
  * @brief Provide the abstract base class used to access dynamic
  * linking facilities.
  */
-class ACE_Export ACE_Shared_Object
-{
+class ACE_Export ACE_Shared_Object{
 public:
-  /// Constructor
   ACE_Shared_Object (void);
 
-  /// Destructor
   virtual ~ACE_Shared_Object (void);
-
   /// Initializes object when dynamic linking occurs.
   virtual int init (int argc, ACE_TCHAR *argv[]);
-
   /// Terminates object when dynamic unlinking occurs.
   virtual int fini (void);
-
   /// Returns information on a service object.
   virtual int info (ACE_TCHAR **info_string, size_t length = 0) const;
 

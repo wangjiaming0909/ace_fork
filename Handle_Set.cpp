@@ -189,8 +189,7 @@ ACE_Handle_Set::bitpos (u_long bit)
 #define ACE_MULT_BY_WORDSIZE(x) ((x) * ((int) ACE_Handle_Set::WORDSIZE))
 #endif /* ACE_USE_SHIFT_FOR_EFFICIENCY */
 
-void
-ACE_Handle_Set::sync (ACE_HANDLE max)
+void ACE_Handle_Set::sync (ACE_HANDLE max)
 {
   ACE_TRACE ("ACE_Handle_Set::sync");
 #if !defined (ACE_WIN32)

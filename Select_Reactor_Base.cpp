@@ -205,31 +205,31 @@ ACE_Select_Reactor_Handler_Repository::bind (ACE_HANDLE handle,
   // Is this handle already in the Reactor?
   bool existing_handle = false;
 
-#if defined (ACE_WIN32)
+// #if defined (ACE_WIN32)
 
-  map_type::ENTRY * entry = 0;
+//   map_type::ENTRY * entry = 0;
 
-  int const result =
-    this->event_handlers_.bind (handle, event_handler, entry);
+//   int const result =
+//     this->event_handlers_.bind (handle, event_handler, entry);
 
-  if (result == -1)
-    {
-      return -1;
-    }
-  else if (result == 1)  // Entry already exists.
-    {
-      // Cannot use a different handler for an existing handle.
-      if (event_handler != entry->item ())
-        {
-          return -1;
-        }
-      else
-        {
-          // Remember that this handle is already registered in the
-          // Reactor.
-          existing_handle = true;
-        }
-    }
+//   if (result == -1)
+//     {
+//       return -1;
+//     }
+//   else if (result == 1)  // Entry already exists.
+//     {
+//       // Cannot use a different handler for an existing handle.
+//       if (event_handler != entry->item ())
+//         {
+//           return -1;
+//         }
+//       else
+//         {
+//           // Remember that this handle is already registered in the
+//           // Reactor.
+//           existing_handle = true;
+//         }
+//     }
 
 #else
 

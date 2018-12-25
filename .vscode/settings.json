@@ -3,6 +3,9 @@
         "*.makefile": "makefile",
         "*.proj": "msbuild",
         "algorithm": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "functional": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp"
     }
 }

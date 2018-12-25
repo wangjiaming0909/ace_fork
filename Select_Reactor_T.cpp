@@ -800,14 +800,13 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::handle_error (void)
 #endif  /* __MVS__ || ACE_WIN32 */
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> void
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::notify_handle
-  (ACE_HANDLE handle,
-   ACE_Reactor_Mask mask,
-   ACE_Handle_Set &ready_mask,
-   ACE_Event_Handler *event_handler,
-   ACE_EH_PTMF ptmf)
-{
+template <class ACE_SELECT_REACTOR_TOKEN> 
+void ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::notify_handle(
+	ACE_HANDLE handle,
+	ACE_Reactor_Mask mask,
+	ACE_Handle_Set &ready_mask,
+	ACE_Event_Handler *event_handler,
+	ACE_EH_PTMF ptmf){
   ACE_TRACE ("ACE_Select_Reactor_T::notify_handle");
   // Check for removed handlers.
   if (event_handler == 0)
@@ -1071,11 +1070,10 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::work_pending
 
 // Must be called with lock held.
 
-template <class ACE_SELECT_REACTOR_TOKEN> int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::wait_for_multiple_events
-  (ACE_Select_Reactor_Handle_Set &dispatch_set,
-   ACE_Time_Value *max_wait_time)
-{
+template <class ACE_SELECT_REACTOR_TOKEN> 
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::wait_for_multiple_events  (
+		ACE_Select_Reactor_Handle_Set &dispatch_set,
+		ACE_Time_Value *max_wait_time){
   ACE_TRACE ("ACE_Select_Reactor_T::wait_for_multiple_events");
   ACE_Time_Value timer_buf (0);
   ACE_Time_Value *this_timeout = 0;
@@ -1155,11 +1153,11 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_timer_handlers
   return 0;
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_notification_handlers
-  (ACE_Select_Reactor_Handle_Set &dispatch_set,
-   int &number_of_active_handles,
-   int &number_of_handlers_dispatched)
+template <class ACE_SELECT_REACTOR_TOKEN> 
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_notification_handlers (
+	ACE_Select_Reactor_Handle_Set &dispatch_set,
+	int &number_of_active_handles,
+	int &number_of_handlers_dispatched)
 {
   // Check to see if the ACE_HANDLE associated with the
   // Select_Reactor's notify hook is enabled.  If so, it means that
@@ -1188,25 +1186,28 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_notification_handlers
   return 0;
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_io_set
-  (int number_of_active_handles,
-   int &number_of_handlers_dispatched,
-   int mask,
-   ACE_Handle_Set &dispatch_mask,
-   ACE_Handle_Set &ready_mask,
-   ACE_EH_PTMF callback)
-{
+template <class ACE_SELECT_REACTOR_TOKEN> 
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_io_set(
+		int number_of_active_handles,
+		int &number_of_handlers_dispatched,
+		int mask,
+		ACE_Handle_Set &dispatch_mask,
+		ACE_Handle_Set &ready_mask,
+		ACE_EH_PTMF callback){
   ACE_TRACE ("ACE_Select_Reactor_T::dispatch_io_set");
   ACE_HANDLE handle;
 
+  //dispatch the dispatch_mask(it is a handle_set) handles
+  //the handles are seperated by function dispatch_io_handlers with read, write and exception flags
   ACE_Handle_Set_Iterator handle_iter (dispatch_mask);
 
+  //handle_iter.operator(), return next handle
   while ((handle = handle_iter ()) != ACE_INVALID_HANDLE &&
          number_of_handlers_dispatched < number_of_active_handles)
     {
       ++number_of_handlers_dispatched;
 
+	  //invoke the member function of Event_Handler
       this->notify_handle (handle,
                            mask,
                            ready_mask,
@@ -1229,12 +1230,11 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_io_set
   return 0;
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_io_handlers
-  (ACE_Select_Reactor_Handle_Set &dispatch_set,
-   int &number_of_active_handles,
-   int &number_of_handlers_dispatched)
-{
+template <class ACE_SELECT_REACTOR_TOKEN> 
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_io_handlers(
+		ACE_Select_Reactor_Handle_Set &dispatch_set,
+		int &number_of_active_handles,
+		int &number_of_handlers_dispatched){
   ACE_TRACE ("ACE_Select_Reactor_T::dispatch_io_handlers");
 
   // Handle output events (this code needs to come first to handle the
@@ -1280,11 +1280,10 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch_io_handlers
   return 0;
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch
-  (int active_handle_count,
-   ACE_Select_Reactor_Handle_Set &dispatch_set)
-{
+template <class ACE_SELECT_REACTOR_TOKEN> 
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::dispatch (
+    int active_handle_count, 
+    ACE_Select_Reactor_Handle_Set &dispatch_set) {
   ACE_TRACE ("ACE_Select_Reactor_T::dispatch");
 
   int io_handlers_dispatched = 0;
@@ -1439,10 +1438,9 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::handle_events
   return this->handle_events_i (max_wait_time);
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::handle_events_i
-  (ACE_Time_Value *max_wait_time)
-{
+template <class ACE_SELECT_REACTOR_TOKEN> 
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::handle_events_i
+  (ACE_Time_Value *max_wait_time) {
   int result = -1;
 
   ACE_SEH_TRY
@@ -1455,13 +1453,11 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::handle_events_i
       this->dispatch_set_.wr_mask_.reset ();
       this->dispatch_set_.ex_mask_.reset ();
 
-      int number_of_active_handles =
-        this->wait_for_multiple_events (this->dispatch_set_,
-                                        max_wait_time);
+//invoke select in wait_for_multiple_events function
+      int number_of_active_handles = this->wait_for_multiple_events (this->dispatch_set_, max_wait_time);
 
-      result =
-        this->dispatch (number_of_active_handles,
-                        this->dispatch_set_);
+      //
+      result = this->dispatch (number_of_active_handles, this->dispatch_set_);
     }
   ACE_SEH_EXCEPT (this->release_token ())
     {
