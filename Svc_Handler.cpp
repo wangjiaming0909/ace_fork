@@ -281,18 +281,11 @@ ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::~ACE_Svc_Handler(void)
 }
 
 template <typename PEER_STREAM, typename SYNCH_TRAITS>
-int
-    ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::handle_close(ACE_HANDLE,
-                                                             ACE_Reactor_Mask)
-{
+int ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::handle_close(ACE_HANDLE, ACE_Reactor_Mask) {
     ACE_TRACE("ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::handle_close");
-
-    if (this->reference_counting_policy().value() ==
-        ACE_Event_Handler::Reference_Counting_Policy::DISABLED)
-    {
+    if (this->reference_counting_policy().value() == ACE_Event_Handler::Reference_Counting_Policy::DISABLED) {
         this->destroy();
     }
-
     return 0;
 }
 
