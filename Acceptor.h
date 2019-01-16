@@ -535,8 +535,7 @@ protected:
  *    behavior is governed by the ACE_Synch_Options argument passed to open().
  */
 template <typename SVC_HANDLER, typename PEER_ACCEPTOR>
-class ACE_Oneshot_Acceptor : public ACE_Service_Object
-{
+class ACE_Oneshot_Acceptor : public ACE_Service_Object{
 public:
 
   // Useful STL-style traits.

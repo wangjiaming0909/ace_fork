@@ -248,9 +248,7 @@ ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::peer(void) const
 // Extract the underlying I/O descriptor.
 
 template <typename PEER_STREAM, typename SYNCH_TRAITS>
-ACE_HANDLE
-ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::get_handle(void) const
-{
+ACE_HANDLE ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::get_handle(void) const {
     ACE_TRACE("ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::get_handle");
     return this->peer_.get_handle();
 }
@@ -258,19 +256,16 @@ ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::get_handle(void) const
 // Set the underlying I/O descriptor.
 
 template <typename PEER_STREAM, typename SYNCH_TRAITS>
-void ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::set_handle(ACE_HANDLE h)
-{
+void ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::set_handle(ACE_HANDLE h) {
     ACE_TRACE("ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::set_handle");
     this->peer_.set_handle(h);
 }
 
 template <typename PEER_STREAM, typename SYNCH_TRAITS>
-ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::~ACE_Svc_Handler(void)
-{
+ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::~ACE_Svc_Handler(void) {
     ACE_TRACE("ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::~ACE_Svc_Handler");
 
-    if (this->closing_ == false)
-    {
+    if (this->closing_ == false) {
         // We're closing down now, so make sure not to call ourselves
         // recursively via other calls to handle_close() (e.g., from the
         // Timer_Queue).

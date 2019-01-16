@@ -322,8 +322,7 @@ ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::accept_svc_handler (SVC_HANDLER *svc_h
 // "active object" via multi-threading or multi-processing).
 
 template <typename SVC_HANDLER, typename PEER_ACCEPTOR> int
-ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::activate_svc_handler
-  (SVC_HANDLER *svc_handler)
+ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::activate_svc_handler (SVC_HANDLER * svc_handler)
 {
   ACE_TRACE ("ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::activate_svc_handler");
 
