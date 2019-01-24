@@ -421,11 +421,12 @@ ACE_Reactor::register_handler (const ACE_Handle_Set &handles,
   return result;
 }
 
-long
-ACE_Reactor::schedule_timer (ACE_Event_Handler *event_handler,
-                             const void *arg,
-                             const ACE_Time_Value &delta,
-                             const ACE_Time_Value &interval)
+//将新的 timer 的 event_handler 绑定到 this 上(reactor)
+long ACE_Reactor::schedule_timer (
+  ACE_Event_Handler *event_handler,
+  const void *arg,
+  const ACE_Time_Value &delta,
+  const ACE_Time_Value &interval)
 {
   // Remember the old reactor.
   ACE_Reactor *old_reactor = event_handler->reactor ();
@@ -433,10 +434,9 @@ ACE_Reactor::schedule_timer (ACE_Event_Handler *event_handler,
   // Assign *this* <Reactor> to the <Event_Handler>.
   event_handler->reactor (this);
 
-  long result = this->implementation ()->schedule_timer (event_handler,
-                                                         arg,
-                                                         delta,
-                                                         interval);
+//** invoke the select_reactor's schedule_timer or poll_reactor's schedule
+  long result = this->implementation ()->schedule_timer (
+    event_handler, arg, delta, interval);
   if (result == -1)
     // Reset the old reactor in case of failures.
     event_handler->reactor (old_reactor);
@@ -477,10 +477,7 @@ ACE_Reactor::notify (ACE_Event_Handler *event_handler,
   return this->implementation ()->notify (event_handler, mask, tv);
 }
 
-int
-ACE_Reactor::reset_timer_interval
-  (long timer_id,
-   const ACE_Time_Value &interval)
+int ACE_Reactor::reset_timer_interval (long timer_id, const ACE_Time_Value &interval)
 {
   ACE_TRACE ("ACE_Reactor::reset_timer_interval");
 

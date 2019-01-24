@@ -67,8 +67,7 @@ protected:
  * and ACE_Timer_Heap.
  */
 template <class TYPE, class FUNCTOR, class ACE_LOCK, typename TIME_POLICY = ACE_Default_Time_Policy>
-class ACE_Timer_Queue_T
-  : public ACE_Timer_Queue_Upcall_Base<TYPE,FUNCTOR>
+class ACE_Timer_Queue_T : public ACE_Timer_Queue_Upcall_Base<TYPE,FUNCTOR>
 {
 public:
   // = Initialization and termination methods.
