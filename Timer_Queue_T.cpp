@@ -228,21 +228,15 @@ ACE_Timer_Queue_T<TYPE, FUNCTOR, ACE_LOCK, TIME_POLICY>::schedule (const TYPE &t
 {
   ACE_MT (ACE_GUARD_RETURN (ACE_LOCK, ace_mon, this->mutex_, -1));
 
-  // Schedule the timer.
-  long const result =
-    this->schedule_i (type,
-                      act,
-                      future_time,
-                      interval);
+  // Schedule the timer. the implementation of schedule_i is in the concrete classes, like heap_timer, hash_timer, wheel_timer
+  long const result = this->schedule_i (type, act, future_time, interval);
 
   // Return on failure.
-  if (result == -1)
-    return result;
+  if (result == -1) return result;
 
   // Inform upcall functor of successful registration.
-  this->upcall_functor ().registration (*this,
-                                        type,
-                                        act);
+  //? what is the upcall_functor, and it has a registration method
+  this->upcall_functor ().registration (*this, type, act);
 
   // Return result;
   return result;

@@ -37,9 +37,7 @@ ACE_BEGIN_VERSIONED_NAMESPACE_DECL
  * functor.
  */
 template<typename TYPE, typename FUNCTOR>
-class ACE_Timer_Queue_Upcall_Base
-  : public ACE_Abstract_Timer_Queue<TYPE>
-  , private ACE_Copy_Disabled
+class ACE_Timer_Queue_Upcall_Base : public ACE_Abstract_Timer_Queue<TYPE> , private ACE_Copy_Disabled
 {
 public:
   // Constructor
