@@ -57,11 +57,9 @@ timeout (ACE_Timer_Queue &timer_queue,
 }
 
 int
-ACE_Event_Handler_Handle_Timeout_Upcall::
-cancel_type (ACE_Timer_Queue &,
-            ACE_Event_Handler *event_handler,
-            int dont_call,
-            int &requires_reference_counting)
+ACE_Event_Handler_Handle_Timeout_Upcall:: cancel_type (
+  ACE_Timer_Queue &, ACE_Event_Handler *event_handler,
+  int dont_call, int &requires_reference_counting)
 {
   requires_reference_counting =
     event_handler->reference_counting_policy ().value () ==

@@ -42,7 +42,7 @@ class ACE_Timer_Queue_Upcall_Base : public ACE_Abstract_Timer_Queue<TYPE> , priv
 {
 public:
   // Constructor
-  //?? 
+  //?? pass a upcall_functor or new one functor
   explicit ACE_Timer_Queue_Upcall_Base(FUNCTOR * upcall_functor = 0);
 
   /// Destructor
