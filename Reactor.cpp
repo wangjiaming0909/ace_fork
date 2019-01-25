@@ -444,8 +444,7 @@ long ACE_Reactor::schedule_timer (
   return result;
 }
 
-int
-ACE_Reactor::schedule_wakeup (ACE_Event_Handler *event_handler,
+int ACE_Reactor::schedule_wakeup (ACE_Event_Handler *event_handler,
                               ACE_Reactor_Mask masks_to_be_added)
 {
   // Remember the old reactor.
@@ -484,18 +483,15 @@ int ACE_Reactor::reset_timer_interval (long timer_id, const ACE_Time_Value &inte
   return this->implementation ()->reset_timer_interval (timer_id, interval);
 }
 
-int
-ACE_Reactor::cancel_timer (ACE_Event_Handler *event_handler,
-                           int dont_call_handle_close)
+int ACE_Reactor::cancel_timer (
+  ACE_Event_Handler *event_handler, int dont_call_handle_close)
 {
   return this->implementation ()->cancel_timer (event_handler,
                                                 dont_call_handle_close);
 }
 
-int
-ACE_Reactor::cancel_timer (long timer_id,
-                           const void **arg,
-                           int dont_call_handle_close)
+int ACE_Reactor::cancel_timer (
+  long timer_id, const void **arg, int dont_call_handle_close)
 {
   return this->implementation ()->cancel_timer (timer_id,
                                                 arg,

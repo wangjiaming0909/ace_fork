@@ -283,9 +283,7 @@ int ACE_Timer_List_T<TYPE, FUNCTOR, ACE_LOCK, TIME_POLICY>::reset_interval(long 
 // @a timer_id from the timer queue.
 template <class TYPE, class FUNCTOR, class ACE_LOCK, typename TIME_POLICY>
 int ACE_Timer_List_T<TYPE, FUNCTOR, ACE_LOCK, TIME_POLICY>::cancel(
-    long timer_id,
-    const void **act,
-    int skip_close)
+    long timer_id, const void **act, int skip_close)
 {
     ACE_TRACE("ACE_Timer_List_T::cancel");
     ACE_MT(ACE_GUARD_RETURN(ACE_LOCK, ace_mon, this->mutex_, -1));

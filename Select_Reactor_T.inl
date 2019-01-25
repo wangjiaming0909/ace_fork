@@ -146,33 +146,37 @@ ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::mask_ops (ACE_Event_Handler *han
   return this->mask_ops (handler->get_handle (), mask, ops);
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> ACE_INLINE int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::schedule_wakeup (ACE_Event_Handler *eh,
-                                                                 ACE_Reactor_Mask mask)
+//?? add the mask into the event_handler or handle
+template <class ACE_SELECT_REACTOR_TOKEN> 
+ACE_INLINE int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::schedule_wakeup (
+  ACE_Event_Handler *eh, ACE_Reactor_Mask mask)
 {
   ACE_TRACE ("ACE_Select_Reactor_T::schedule_wakeup");
   return this->mask_ops (eh->get_handle (), mask, ACE_Reactor::ADD_MASK);
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> ACE_INLINE int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_wakeup (ACE_Event_Handler *eh,
-                                                               ACE_Reactor_Mask mask)
-{
-  ACE_TRACE ("ACE_Select_Reactor_T::cancel_wakeup");
-  return this->mask_ops (eh->get_handle (), mask, ACE_Reactor::CLR_MASK);
-}
-
-template <class ACE_SELECT_REACTOR_TOKEN> ACE_INLINE int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::schedule_wakeup (ACE_HANDLE handle,
-                                                                 ACE_Reactor_Mask mask)
+//?? add the mask into the event_handler or handle
+template <class ACE_SELECT_REACTOR_TOKEN> 
+ACE_INLINE int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::schedule_wakeup (
+  ACE_HANDLE handle, ACE_Reactor_Mask mask)
 {
   ACE_TRACE ("ACE_Select_Reactor_T::schedule_wakeup");
   return this->mask_ops (handle, mask, ACE_Reactor::ADD_MASK);
 }
 
-template <class ACE_SELECT_REACTOR_TOKEN> ACE_INLINE int
-ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_wakeup (ACE_HANDLE handle,
-                                                               ACE_Reactor_Mask mask)
+//?? cancel the mask from the event_handler or handle
+template <class ACE_SELECT_REACTOR_TOKEN> 
+ACE_INLINE int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_wakeup (
+  ACE_Event_Handler *eh, ACE_Reactor_Mask mask)
+{
+  ACE_TRACE ("ACE_Select_Reactor_T::cancel_wakeup");
+  return this->mask_ops (eh->get_handle (), mask, ACE_Reactor::CLR_MASK);
+}
+
+//?? cancel the mask from the event_handler or handle
+template <class ACE_SELECT_REACTOR_TOKEN> 
+ACE_INLINE int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_wakeup (
+  ACE_HANDLE handle, ACE_Reactor_Mask mask)
 {
   ACE_TRACE ("ACE_Select_Reactor_T::cancel_wakeup");
   return this->mask_ops (handle, mask, ACE_Reactor::CLR_MASK);

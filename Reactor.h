@@ -619,19 +619,20 @@ public:
    * Cancel timer.
    *
    * Cancel timer associated with @a timer_id that was returned from
-   * the schedule_timer() method.  If arg is non-NULL then it will be
-   * set to point to the ``magic cookie'' argument passed in when the
+   * the schedule_timer() method.  
+   *! If arg is non-NULL then it will be
+   *! set to point to the ``magic cookie'' argument passed in when the
    * handler was registered.  This makes it possible to free up the
    * memory and avoid memory leaks.  Returns 1 if cancellation
    * succeeded and 0 if the @a timer_id wasn't found.
    *
-   * On successful cancellation, ACE_Event_Handler::handle_close()
-   * will be called with ACE_Event_Handler::TIMER_MASK.
-   * ACE_Event_Handler::remove_reference() will also be called.
+   * On successful cancellation, 
+   *! ACE_Event_Handler::handle_close()
+   *! will be called with ACE_Event_Handler::TIMER_MASK.
+   *! ACE_Event_Handler::remove_reference() will also be called.
    */
-  virtual int cancel_timer (long timer_id,
-                            const void **arg = 0,
-                            int dont_call_handle_close = 1);
+  virtual int cancel_timer (
+    long timer_id, const void **arg = 0, int dont_call_handle_close = 1);
 
   /**
    * Cancel all timers associated with event handler.
@@ -650,13 +651,13 @@ public:
    *
    * Returns number of handlers cancelled.
    */
-  virtual int cancel_timer (ACE_Event_Handler *event_handler,
-                            int dont_call_handle_close = 1);
+  virtual int cancel_timer (
+    ACE_Event_Handler *event_handler, int dont_call_handle_close = 1);
 
   // = High-level Event_Handler scheduling operations
 
   /// Add @a masks_to_be_added to the @a event_handler's entry.
-  /// @a event_handler must already have been registered.
+  //! @a event_handler must already have been registered.
   /// Note that this call does not cause the Reactor to re-examine
   /// its set of handlers - the new masks will be noticed the next
   /// time the Reactor waits for activity. If there is no other

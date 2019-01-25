@@ -31,7 +31,8 @@ ACE_BEGIN_VERSIONED_NAMESPACE_DECL
 /**
  * @class ACE_Timer_Queue_Upcall_Base
  *
- * Common base class for all timer queues with the same time source
+ * Common base class for 
+ *! all timer queues with the same time source
  * policy.  This is really motivated by a single use-case in the code,
  * namely the ACE_Proactor needs to set a backpointer in the upcall
  * functor.
@@ -41,6 +42,7 @@ class ACE_Timer_Queue_Upcall_Base : public ACE_Abstract_Timer_Queue<TYPE> , priv
 {
 public:
   // Constructor
+  //?? 
   explicit ACE_Timer_Queue_Upcall_Base(FUNCTOR * upcall_functor = 0);
 
   /// Destructor

@@ -666,8 +666,8 @@ int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::remove_handler(const ACE_Sig
 }
 
 template <class ACE_SELECT_REACTOR_TOKEN>
-int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_timer(ACE_Event_Handler *handler,
-                                                                 int dont_call_handle_close)
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_timer(
+    ACE_Event_Handler *handler, int dont_call_handle_close)
 {
     ACE_TRACE("ACE_Select_Reactor_T::cancel_timer");
     ACE_MT(ACE_GUARD_RETURN(ACE_SELECT_REACTOR_TOKEN, ace_mon, this->token_, -1));
@@ -679,13 +679,15 @@ int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_timer(ACE_Event_Handl
 }
 
 template <class ACE_SELECT_REACTOR_TOKEN>
-int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_timer(long timer_id,
-                                                                 const void **arg,
-                                                                 int dont_call_handle_close)
+int ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::cancel_timer(
+    long timer_id, const void **arg, int dont_call_handle_close)
 {
     ACE_TRACE("ACE_Select_Reactor_T::cancel_timer");
     ACE_MT(ACE_GUARD_RETURN(ACE_SELECT_REACTOR_TOKEN, ace_mon, this->token_, -1));
 
+//?? cancel the timer with the timer_id
+//?? delete the timer from the timer_queue
+//?? what if set the dont_call_handle_close to false
     if (this->timer_queue_ != 0)
         return this->timer_queue_->cancel(timer_id, arg, dont_call_handle_close);
     else
