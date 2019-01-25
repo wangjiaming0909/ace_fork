@@ -399,7 +399,10 @@ ACE_Timer_Node_T<TYPE> *
 ACE_Timer_List_T<TYPE, FUNCTOR, ACE_LOCK, TIME_POLICY>::get_first_i(void) const
 {
     ACE_TRACE("ACE_Timer_List_T::get_first_i");
+
+//?? head_ is a dummy node, the next node of head_ is the first node
     ACE_Timer_Node_T<TYPE> *first = this->head_->get_next();
+    //?? if it is empty
     if (first != this->head_) // Note : is_empty() uses get_first()
         return first;
     return 0;
