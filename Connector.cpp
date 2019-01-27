@@ -261,7 +261,8 @@ int ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::activate_svc_handler(SVC_HANDLER
         error = 1;
 
     // We are connected now, so try to open things up.
-    if (error || svc_handler->open((void *)this) == -1)
+    //! using READ_MASK by default
+    if (error || svc_handler->open((void *)this) == -1)//register to reactor 
     {
         // Make sure to close down the <svc_handler> to avoid descriptor
         // leaks.
@@ -275,8 +276,7 @@ int ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::activate_svc_handler(SVC_HANDLER
 }
 
 template <typename SVC_HANDLER, typename PEER_CONNECTOR>
-PEER_CONNECTOR &
-ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::connector(void) const
+PEER_CONNECTOR & ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::connector(void) const
 {
     return const_cast<PEER_CONNECTOR &>(this->connector_);
 }
@@ -293,7 +293,7 @@ int ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::connect_svc_handler(
 {
     ACE_TRACE("ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::connect_svc_handler");
 
-    return this->connector_.connect(
+    return this->connector_.connect(//connect
         svc_handler->peer(),
         remote_addr,
         timeout,
@@ -337,8 +337,8 @@ int ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::open(ACE_Reactor *r, int flags)
 }
 
 template <typename SVC_HANDLER, typename PEER_CONNECTOR>
-ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::ACE_Connector(ACE_Reactor *r,
-                                                          int flags)
+ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::ACE_Connector(
+    ACE_Reactor *r, int flags)
 {
     ACE_TRACE("ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::ACE_Connector");
     (void)this->open(r, flags);
@@ -403,7 +403,7 @@ int ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::connect_i(
     // If the user hasn't supplied us with a <SVC_HANDLER> we'll use the
     // factory method to create one.  Otherwise, things will remain as
     // they are...
-    if (this->make_svc_handler(sh) == -1)
+    if (this->make_svc_handler(sh) == -1)//new a svc_handler and set the reactor to svc_handler
         return -1;
 
     ACE_Time_Value *timeout = 0;
@@ -564,9 +564,7 @@ int ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::nonblocking_connect(SVC_HANDLER 
 
     // Register handle with the reactor for connection events.
     ACE_Reactor_Mask mask = ACE_Event_Handler::CONNECT_MASK;
-    if (this->reactor()->register_handler(handle,
-                                          nbch,
-                                          mask) == -1)
+    if (this->reactor()->register_handler( handle, nbch, mask) == -1)
         goto reactor_registration_failure;
 
     // Add handle to non-blocking handle set.
@@ -624,6 +622,7 @@ void ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::initialize_svc_handler(ACE_HAND
 {
     // Try to find out if the reactor uses event associations for the
     // handles it waits on. If so we need to reset it.
+    //select_reactor does use event associations
     bool reset_new_handle =
         this->reactor()->uses_event_associations();
 
@@ -640,16 +639,16 @@ void ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::initialize_svc_handler(ACE_HAND
         this->activate_svc_handler(svc_handler);
     else // Somethings gone wrong, so close down...
     {
-#if defined(ACE_WIN32)
-        // Win32 (at least prior to Windows 2000) has a timing problem.
-        // If you check to see if the connection has completed too fast,
-        // it will fail - so wait 35 milliseconds to let it catch up.
-        ACE_Time_Value tv(0, ACE_NON_BLOCKING_BUG_DELAY);
-        ACE_OS::sleep(tv);
-        if (svc_handler->peer().get_remote_addr(raddr) != -1)
-            this->activate_svc_handler(svc_handler);
-        else // do the svc handler close below...
-#endif       /* ACE_WIN32 */
+// #if defined(ACE_WIN32)
+//         // Win32 (at least prior to Windows 2000) has a timing problem.
+//         // If you check to see if the connection has completed too fast,
+//         // it will fail - so wait 35 milliseconds to let it catch up.
+//         ACE_Time_Value tv(0, ACE_NON_BLOCKING_BUG_DELAY);
+//         ACE_OS::sleep(tv);
+//         if (svc_handler->peer().get_remote_addr(raddr) != -1)
+//             this->activate_svc_handler(svc_handler);
+//         else // do the svc handler close below...
+// #endif       /* ACE_WIN32 */
             svc_handler->close(NORMAL_CLOSE_OPERATION);
     }
 }
