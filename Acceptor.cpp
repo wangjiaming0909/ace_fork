@@ -340,7 +340,7 @@ ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::activate_svc_handler (SVC_HANDLER * sv
   else if (svc_handler->peer ().disable (ACE_NONBLOCK) == -1)
     result = -1;
 
-  if (result == 0 && svc_handler->open ((void *) this) == -1)
+  if (result == 0 && svc_handler->open ((void *) this) == -1)//register to reactor
     result = -1;
 
   if (result == -1)
@@ -389,7 +389,7 @@ ACE_Acceptor<SVC_HANDLER, PEER_ACCEPTOR>::handle_input (ACE_HANDLE listener)
 
       SVC_HANDLER *svc_handler = 0;
 
-      if (this->make_svc_handler (svc_handler) == -1)
+      if (this->make_svc_handler (svc_handler) == -1)//new and set the reactor, nothing more
         {
           if (ACE::debug ())
             {
