@@ -43,14 +43,15 @@ ACE_Task<ACE_SYNCH_USE, TIME_POLICY>::dump (void) const
 // If the user doesn't supply a ACE_Message_Queue pointer then we'll
 // allocate one dynamically.  Otherwise, we'll use the one they give.
 
+//?? means that, every svc_handler will have one message_queue if didn't provide a mq outside
 template<ACE_SYNCH_DECL, class TIME_POLICY>
-ACE_Task<ACE_SYNCH_USE, TIME_POLICY>::ACE_Task (ACE_Thread_Manager *thr_man,
-                                   ACE_Message_Queue<ACE_SYNCH_USE, TIME_POLICY> *mq)
-  : ACE_Task_Base (thr_man),
-    msg_queue_ (0),
-    delete_msg_queue_ (false),
-    mod_ (0),
-    next_ (0)
+ACE_Task<ACE_SYNCH_USE, TIME_POLICY>::ACE_Task (
+  ACE_Thread_Manager *thr_man, ACE_Message_Queue<ACE_SYNCH_USE, TIME_POLICY> *mq)
+  : ACE_Task_Base (thr_man)
+  , msg_queue_ (0)
+  , delete_msg_queue_ (false)
+  , mod_ (0)
+  , next_ (0)
 {
   ACE_TRACE ("ACE_Task<ACE_SYNCH_USE, TIME_POLICY>::ACE_Task");
 
