@@ -591,10 +591,8 @@ ACE_Select_Reactor_Notify::dump (void) const
 #endif /* ACE_HAS_DUMP */
 }
 
-int
-ACE_Select_Reactor_Notify::open (ACE_Reactor_Impl *r,
-                                 ACE_Timer_Queue *,
-                                 int disable_notify_pipe)
+int ACE_Select_Reactor_Notify::open (
+  ACE_Reactor_Impl *r, ACE_Timer_Queue *, int disable_notify_pipe)
 {
   ACE_TRACE ("ACE_Select_Reactor_Notify::open");
 
@@ -685,10 +683,10 @@ ACE_Select_Reactor_Notify::close (void)
   return this->notification_pipe_.close ();
 }
 
-int
-ACE_Select_Reactor_Notify::notify (ACE_Event_Handler *event_handler,
-                                   ACE_Reactor_Mask mask,
-                                   ACE_Time_Value *timeout)
+int ACE_Select_Reactor_Notify::notify (
+  ACE_Event_Handler *event_handler, 
+  ACE_Reactor_Mask mask, 
+  ACE_Time_Value *timeout)
 {
   ACE_TRACE ("ACE_Select_Reactor_Notify::notify");
 
