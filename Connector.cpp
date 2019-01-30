@@ -293,7 +293,7 @@ int ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::connect_svc_handler(
 {
     ACE_TRACE("ACE_Connector<SVC_HANDLER, PEER_CONNECTOR>::connect_svc_handler");
 
-    return this->connector_.connect(//connect
+    return this->connector_.connect(//connect here
         svc_handler->peer(),
         remote_addr,
         timeout,

@@ -158,16 +158,16 @@ template <typename PEER_STREAM, typename SYNCH_TRAITS>
 int ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::open(void *)//open是在task_base中定义的，这个void*参数也没有使用
 {
     ACE_TRACE("ACE_Svc_Handler<PEER_STREAM, SYNCH_TRAITS>::open");
-#if defined(ACELIB_DEBUGGING)//debuging才记录peer地址
-    ACE_TCHAR buf[BUFSIZ];
-    ACE_PEER_STREAM_ADDR client_addr;
+// #if defined(ACELIB_DEBUGGING)//debuging才记录peer地址
+//     ACE_TCHAR buf[BUFSIZ];
+//     ACE_PEER_STREAM_ADDR client_addr;
 
-    if (this->peer_.get_remote_addr(client_addr) == -1)//peer_是在acceptor中赋值的, client_addr为引用传递进去的
-        ACELIB_ERROR_RETURN((LM_ERROR, ACE_TEXT("%p\n"), ACE_TEXT("get_remote_addr")), -1);
-    else if (client_addr.addr_to_string(buf, sizeof buf) == -1)
-        ACELIB_ERROR_RETURN((LM_ERROR, ACE_TEXT("%p\n"), ACE_TEXT("can't obtain peer's address")), -1);
-    ACELIB_DEBUG((LM_DEBUG, ACE_TEXT("connected to %s on fd %d\n"), buf, this->peer_.get_handle()));
-#endif /* ACELIB_DEBUGGING */
+//     if (this->peer_.get_remote_addr(client_addr) == -1)//peer_是在acceptor中赋值的, client_addr为引用传递进去的
+//         ACELIB_ERROR_RETURN((LM_ERROR, ACE_TEXT("%p\n"), ACE_TEXT("get_remote_addr")), -1);
+//     else if (client_addr.addr_to_string(buf, sizeof buf) == -1)
+//         ACELIB_ERROR_RETURN((LM_ERROR, ACE_TEXT("%p\n"), ACE_TEXT("can't obtain peer's address")), -1);
+//     ACELIB_DEBUG((LM_DEBUG, ACE_TEXT("connected to %s on fd %d\n"), buf, this->peer_.get_handle()));
+// #endif /* ACELIB_DEBUGGING */
     if (this->reactor() && this->reactor()->register_handler(this, ACE_Event_Handler::READ_MASK) == -1)
         ACELIB_ERROR_RETURN((LM_ERROR, ACE_TEXT("%p\n"), ACE_TEXT("unable to register client handler")), -1);
     return 0;
