@@ -793,10 +793,11 @@ void ACE_Select_Reactor_T<ACE_SELECT_REACTOR_TOKEN>::notify_handle(
 
     int const status = (event_handler->*ptmf)(handle);
 
-    if (status < 0)
+    if (status < 0)//直接删除该事件和handler
         this->remove_handler_i(handle, mask);
-    else if (status > 0)
+    else if (status > 0)//指示 在下次select之前会再次dispatch此事件
         ready_mask.set_bit(handle);
+    //如果返回0???
 
     // Call remove_reference() if needed.
     if (reference_counting_required)
