@@ -2,11 +2,18 @@
     "files.associations": {
         "*.makefile": "makefile",
         "*.proj": "msbuild",
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript",
         "algorithm": "cpp",
         "vector": "cpp",
         "functional": "cpp",
         "*.tcc": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }
