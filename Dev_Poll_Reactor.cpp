@@ -1350,9 +1350,8 @@ int ACE_Dev_Poll_Reactor::register_handler(ACE_HANDLE handle,
                                     mask);
 }
 
-int ACE_Dev_Poll_Reactor::register_handler_i(ACE_HANDLE handle,
-                                             ACE_Event_Handler *event_handler,
-                                             ACE_Reactor_Mask mask)
+int ACE_Dev_Poll_Reactor::register_handler_i(
+    ACE_HANDLE handle, ACE_Event_Handler *event_handler, ACE_Reactor_Mask mask)
 {
     ACE_TRACE("ACE_Dev_Poll_Reactor::register_handler_i");
 
@@ -1396,7 +1395,7 @@ int ACE_Dev_Poll_Reactor::register_handler_i(ACE_HANDLE handle,
     }
     else
     {
-        // Handler is already present in the repository, so register it
+        // *Handler is already present in the repository, so register it
         // again, possibly for different event.  Add new mask to the
         // current one.
         if (this->mask_ops_i(handle, mask, ACE_Reactor::ADD_MASK) == -1)

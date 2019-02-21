@@ -13,7 +13,8 @@
         "iosfwd": "cpp",
         "xhash": "cpp",
         "xstring": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "unordered_map": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }
