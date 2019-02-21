@@ -40,8 +40,7 @@ ACE_Pipe::dump (void) const
 #endif /* ACE_HAS_DUMP */
 }
 
-int
-ACE_Pipe::open (int buffer_size)
+int ACE_Pipe::open (int buffer_size)
 {
   ACE_TRACE ("ACE_Pipe::open");
 

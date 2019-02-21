@@ -146,8 +146,9 @@ public:
 
   /**
    * Called by a thread when it wants to unblock the
-   * ACE_Select_Reactor.  This wakeups the ACE_Select_Reactor if
-   * currently blocked in @c select/poll.  Pass over both the
+   * ACE_Select_Reactor.  
+   * ?This wakeups the ACE_Select_Reactor if * currently blocked in @c select/poll.  
+   * Pass over both the
    * @c Event_Handler *and* the @c mask to allow the caller to dictate
    * which @c Event_Handler method the ACE_Select_Reactor will
    * invoke.  The ACE_Time_Value indicates how long to blocking
