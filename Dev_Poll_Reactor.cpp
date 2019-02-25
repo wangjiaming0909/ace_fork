@@ -1361,14 +1361,15 @@ int ACE_Dev_Poll_Reactor::register_handler_i(
         return -1;
     }
 
-    if (this->handler_rep_.find(handle) == 0)
+    if (this->handler_rep_.find(handle) == 0)//didn't find the handle, bind it
     {
-        // Handler not present in the repository.  Bind it.
+        // Handler not present in the repository.  Bind it to the demultiplex table
         if (this->handler_rep_.bind(handle, event_handler, mask) != 0)
             return -1;
 
 #if defined(ACE_HAS_EVENT_POLL)
 
+        // bind it to the  epoll sets
         Event_Tuple *info = this->handler_rep_.find(handle);
 
         struct epoll_event epev;
@@ -1381,9 +1382,9 @@ int ACE_Dev_Poll_Reactor::register_handler_i(
         // auto suspend before the upcall. See dispatch_io_event for more
         // information.
         if (event_handler != this->notify_handler_)
-            epev.events |= EPOLLONESHOT;
+            epev.events |= EPOLLONESHOT;//? EPOLLONESHOT 
 
-        if (::epoll_ctl(this->poll_fd_, op, handle, &epev) == -1)
+        if (::epoll_ctl(this->poll_fd_, op, handle, &epev) == -1) //add the handle to epoll
         {
             ACELIB_ERROR((LM_ERROR, ACE_TEXT("%p\n"), ACE_TEXT("epoll_ctl")));
             (void)this->handler_rep_.unbind(handle);
